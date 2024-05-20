@@ -1,15 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom' 
-
+import Navbar from './Navbar';
 import Home from './pages/Home'
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+
+
+
 
 function App() {
 
   return(
     <Router>
    <>
-   <h1>Navbar</h1>
+   <Navbar />
    </>
  <Routes>
    <Route
@@ -23,5 +27,4 @@ function App() {
  
  );
 }
-
 export default App;
