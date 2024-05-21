@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from '../media/logo color.png'; 
+import logo from '../media_components/logo color.png'; 
 import { Link } from 'react-router-dom';
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import burger1 from '../media/burger-3.png'
-import burger2 from '../media/burger-4.png'
-import burger3 from '../media/burger-5.png'
+import burger1 from '../media_components/burger-3.png'
+import burger2 from '../media_components/burger-4.png'
+import burger3 from '../media_components/burger-5.png'
 import { Image } from 'react-bootstrap';
 import './carousel.css';
 

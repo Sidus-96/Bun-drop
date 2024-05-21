@@ -13,14 +13,14 @@ function Meny(){
    
     return(
         <div>
-   
+    <Image src={"/media/burger-3.png"} roundedCircle height="200" width="200" />
    <div className="container">
    <h1 className='text-center mb-5'>Meny</h1>
   <div className="row justify-content-center">
 
     {products.map((product) => (
       <div key={product.id} className="col-12 col-md-6 col-lg-4 p-2">
-        <div className="product-item text-center">
+        <div className="text-center">
           <Image src={product.image} roundedCircle height="200" width="200" />
           <div>
             <h5>{product.title}</h5>
