@@ -1,0 +1,39 @@
+{
+    "menu": [
+      {
+        "id": 1,
+        "title": "Classic Burger",
+        "price": 8.99,
+        "description": "A classic beef burger with lettuce, tomato, and cheese.",
+        "category": "burgers",
+        "image": "/location/of/image/1.png"
+      },
+      {
+        "id": 2,
+        "title": "Sweet Potato Fries",
+        "price": 4.99,
+        "description": "Crispy sweet potato fries topped with fresh parsley.",
+        "category": "sides",
+        "image": "/location/of/image/2.png"
+      }
+    ],
+    "menuNew": [
+        {
+          "id": 1,
+          "title": "TEST Burger",
+          "price": 8.99,
+          "description": "A classic beef burger with lettuce, tomato, and cheese.",
+          "category": "burgers",
+          "image": "/location/of/image/1.png"
+        },
+        {
+          "id": 2,
+          "title": "TEST Potato Fries",
+          "price": 4.99,
+          "description": "Crispy sweet potato fries topped with fresh parsley.",
+          "category": "sides",
+          "image": "/location/of/image/2.png"
+        }
+      ]
+
+  }

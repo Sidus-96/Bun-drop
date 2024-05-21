@@ -1,3 +1,9 @@
+#Paket
+npm install json-server
+
+npx json-server --watch database/db.json --port 3005
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
