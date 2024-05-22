@@ -57,10 +57,12 @@ function Meny({ addToCart }) {
      </div>
         ))}
     </div>
-   {/* ha koll på vilka knappar som är iklickade sålänge */}
- <div>
- <p>Checked Values: {activeFilters.join(', ')}</p>
- </div>
+   {/* Visa vilka filter som är aktiva just nu */}
+   {activeFilters.length > 0 && (
+  <div>
+    <p>Active filter: {activeFilters.join(', ')}</p>
+  </div>
+)}
 {/* Visa alla produkter*/}
   <div className="row justify-content-center">
 
