@@ -1,8 +1,9 @@
 import React, { useState, useEffect  } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { Image } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
-function Meny(){
+function Meny({ addToCart }) {
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
 
@@ -63,7 +64,7 @@ function Meny(){
 {/* Visa alla produkter*/}
   <div className="row justify-content-center">
 
-    {products.filter((product)=> activeFilters.includes(product.category))
+    { (activeFilters.length === 0 ? products : products.filter(product => activeFilters.includes(product.category)))
     .map((product) => (
       <div key={product.id} className="col-12 col-md-6 col-lg-4">
         <div className="text-center">
@@ -71,6 +72,7 @@ function Meny(){
           <div>
             <h5>{product.title}</h5>
             <p>${product.price}</p>
+            <Button onClick={() => addToCart(product)}>Add to Cart</Button>
           </div>
         </div>
       </div>
