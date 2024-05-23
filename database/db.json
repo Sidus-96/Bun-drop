@@ -1,30 +1,146 @@
 {
-    "menu": [
+    "menu":  [
       {
         "id": 1,
-        "title": "Classic Burger",
-        "price": 8.99,
-        "description": "A classic beef burger with lettuce, tomato, and cheese.",
-        "category": "burgers",
+        "title": "Klassisk Hamburgare",
+        "price": 79.10,
+        "description": "En klassisk hamburgare med kött, sallad, tomat och ost.",
+        "category": "hamburgare",
         "image": "/media/burger-1.png"
       },
       {
         "id": 2,
-        "title": "Sweet Potato Fries",
-        "price": 4.99,
-        "description": "Crispy sweet potato fries topped with fresh parsley.",
-        "category": "sides",
+        "title": "Sötpotatis Pommes",
+        "price": 44.91,
+        "description": "Krispiga sötpotatis pommes toppade med färsk persilja.",
+        "category": "tillbehör",
         "image": "/media/fries-2.png"
+      },
+      {
+        "id": 3,
+        "title": "BBQ Bacon Hamburgare",
+        "price": 89.91,
+        "description": "Saftig köttburgare toppad med knaperigt bacon, cheddarost och kryddig BBQ-sås.",
+        "category": "hamburgare",
+        "image": "/media/burger 2.png"
+      },
+      {
+        "id": 4,
+        "title": "Swiss Hamburgare",
+        "price": 94.03,
+        "description": "Grillad köttburgare toppad med stekta svampar, schweizisk ost och krämig vitlöksaioli.",
+        "category": "hamburgare",
+        "image": "/media/burger-6.png"
+      },
+      {
+        "id": 5,
+        "title": "Kryddig Jalapeño Hamburgare",
+        "price": 89.91,
+        "description": "Hamburgare med pepper jack-ost, krispiga jalapeños och kryddig chipotlemajonnäs.",
+        "category": "hamburgare",
+        "image": "/media/burger-3.png"
+      },
+      {
+        "id": 6,
+        "title": "Turkisk  Avokado Hamburgare",
+        "price": 89.91,
+        "description": "Hamburgare med kalkon och toppad med färska avokadoskivor, sallad, tomat och koriander-limemajonnäs.",
+        "category": "hamburgare",
+        "image": "/media/burger 7.png"
+      },
+      {
+        "id": 7,
+        "title": "Vegetarisk Quinoaburgare",
+        "price": 84.57,
+        "description": "Quinoa- och svart bönaburgare toppad med sallad, tomat, rödlök och tzatziki-sås.",
+        "category": "hamburgare",
+        "image": "/media/burger-5.png"
+      },
+      {
+        "id": 8,
+        "title": "Buffalo Kyckling Hamburgare",
+        "price": 99.89,
+        "description": "Krispig kycklingbröst kastad i buffelsås, toppad med blå ost, sallad och tomat.",
+        "category": "hamburgare",
+        "image": "/media/burger-2.png"
+      },
+      {
+        "id": 9,
+        "title": "Caprese Hamburgare",
+        "price": 94.03,
+        "description": "Grillad kycklingbröst toppad med färsk mozzarella, tomat, basilikapesto och balsamvinägerglaze.",
+        "category": "hamburgare",
+        "image": "/media/burger-6.png"
+      },
+      {
+        "id": 10,
+        "title": "Hawaiiansk Teriyaki Hamburgare",
+        "price": 99.89,
+        "description": "Hamburgare med grillad ananas, teriyakiglasyr, schweizisk ost, sallad och tomat.",
+        "category": "hamburgare",
+        "image": "/media/burger 8.png"
+      },
+      {
+        "id": 11,
+        "title": "Grekisk Lamm Hamburgare",
+        "price": 104.29,
+        "description": "Kryddad lammfärsburgare toppad med fetaost, gurka, tomat, rödlök och tzatziki-sås.",
+        "category": "hamburgare",
+        "image": "/media/burger 4.png"
+      },
+      {
+        "id": 12,
+        "title": "Bacon Jam Hamburgare",
+        "price": 99.89,
+        "description": "Hamburgare med baconmarmelad, cheddarost, sallad och tomat.",
+        "category": "hamburgare",
+        "image": "/media/burger-8.png"
+      },
+      {
+        "id": 13,
+        "title": "Sriracha Biff Hamburgare",
+        "price": 94.03,
+        "description": "Biffburgare med pepper jack-ost, knapriga lökar, sallad, tomat och srirachamajonnäs.",
+        "category": "hamburgare",
+        "image": "/media/burger-9.png"
+      },
+      {
+        "id": 14,
+        "title": "Brownie Sundae",
+        "price": 69.99,
+        "description": "Varm chokladbrownie serverad med en kula vaniljglass, toppad med chokladsås och vispad grädde samt ett körsbär.",
+        "category": "efterrätt",
+        "image": "/media/desert-brownie-sundae.jpg"
+      },
+      {
+        "id": 15,
+        "title": "Äppelpaj",
+        "price": 49.99,
+        "description": "Klassisk hemlagad äppelpaj serverad varm, med ett smördegskal och en kanelkryddad äppelfyllning, tillsammans med en kula vaniljglass.",
+        "category": "efterrätt",
+        "image": "/media/desert-apple-pie.webp"
+      },
+      {
+        "id": 16,
+        "title": "Banansplit",
+        "price": 79.99,
+        "description": "Traditionell banansplit med tre kulor glass (vanilj, choklad och jordgubb), skivad banan, varm chokladsås, jordgubbssås, vispad grädde, hackade nötter och ett körsbär på toppen.",
+        "category": "efterrätt",
+        "image": "/media/desert-banana-split.webp"
       }
     ],
     "filters": [
         {
          "id": 1,
-         "category": "burgers"
+         "category": "Hamburgare"
         },
         {
           "id": 2,
-          "category": "sides"
+          "category": "Tillbehör"
+        },
+        {
+          "id": 3,
+          "category": "Efterrätt"
         }
       ]
 

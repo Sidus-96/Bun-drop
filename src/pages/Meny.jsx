@@ -15,12 +15,12 @@ function Meny({ addToCart }) {
   
       if (isChecked) 
         {
-        setCheckedValues((a) => [...a, category]);
+        setCheckedValues((a) => [...a, category.toLowerCase()]);
       }
        else if(isChecked==false)
         {
         setCheckedValues((a) =>
-          a.filter((value) => value !== category));
+          a.filter((value) => value !== category.toLowerCase()));
       }
     };
     useEffect(() => {
@@ -63,17 +63,18 @@ function Meny({ addToCart }) {
     <p>Active filter: {activeFilters.join(', ')}</p>
   </div>
 )}
+
 {/* Visa alla produkter*/}
   <div className="row justify-content-center">
 
     { (activeFilters.length === 0 ? products : products.filter(product => activeFilters.includes(product.category)))
     .map((product) => (
       <div key={product.id} className="col-12 col-md-6 col-lg-4">
-        <div className="text-center">
+        <div className="text-center mb-2">
           <Image src={product.image} roundedCircle height="200" width="200" />
           <div>
             <h5>{product.title}</h5>
-            <p>${product.price}</p>
+            <p>{product.price} kr</p>
             <Button onClick={() => addToCart(product)}>Add to Cart</Button>
           </div>
         </div>
@@ -84,5 +85,4 @@ function Meny({ addToCart }) {
     </div>
     );
 }
-
 export default Meny
