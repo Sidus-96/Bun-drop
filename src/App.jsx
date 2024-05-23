@@ -11,30 +11,44 @@ function App() {
 
   const [show, setShow] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
- 
   const addToCart = (item) => {
     const existingProduct = cartProducts.find((product) => product.id === item.id);
     if (existingProduct) {
       setCartProducts(cartProducts.map((product) =>
         product.id === item.id ? { ...product, quantity: product.quantity + 1 } : product
       ));
+      setTotalQuantity(totalQuantity + 1);
     } else {
       setCartProducts([...cartProducts, { ...item, quantity: 1 }]);
+      setTotalQuantity(totalQuantity + 1);
     }
+  };
+
+    const updateQuantity = (index, ButtonClickEvent) => {
+    const updatedCartProducts = [...cartProducts];
+    if (ButtonClickEvent === 'increaseQ') {
+      updatedCartProducts[index].quantity += 1;
+      setTotalQuantity(totalQuantity + 1);
+    } else if (ButtonClickEvent === 'decreaseQ' && updatedCartProducts[index].quantity > 1) {
+      updatedCartProducts[index].quantity -= 1;
+      setTotalQuantity(totalQuantity - 1);
+    }
+    setCartProducts(updatedCartProducts);
   };
 
   return(
     
    <div className="bg-dark text-light p-3">
 
-      <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} />
-  
+      <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} updateQuantity={updateQuantity} />
+
     <Router>
-    <Navbar handleShow={handleShow} />
+    <Navbar handleShow={handleShow} totalQuantity={totalQuantity} />
  <Routes>
    <Route path ="/" element={<Home />} />
    <Route path ="/Meny" element={<Meny addToCart={addToCart} />} />
