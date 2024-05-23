@@ -29,6 +29,11 @@ function App() {
     }
   };
 
+  const removeFromCart = (item) => {
+    setCartProducts(cartProducts.filter((product) => product.id !== item.id));
+    setTotalQuantity(totalQuantity - item.quantity);
+  };
+  
     const updateQuantity = (index, ButtonClickEvent) => {
     const updatedCartProducts = [...cartProducts];
     if (ButtonClickEvent === 'increaseQ') {
@@ -45,7 +50,7 @@ function App() {
     
    <div className="bg-dark text-light p-3">
 
-      <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} updateQuantity={updateQuantity} />
+      <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
 
     <Router>
     <Navbar handleShow={handleShow} totalQuantity={totalQuantity} />
