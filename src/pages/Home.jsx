@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {Link, useNavigate} from 'react-router-dom'
 import Carousel from '../components/carousel';
 
 
@@ -10,7 +9,12 @@ function Home(){
 
      <div style={{ height: '100vh'}} >
      <Carousel />
+     <div className="text-center">
+        <p>Välkommen till vår hamburgarekedja! Vi startade för några dagar sedan. </p>
+        vi har olika färdigheter inom olika saker
      </div>
+     </div>
+     
     );
 }
 

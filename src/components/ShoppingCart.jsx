@@ -1,7 +1,7 @@
 import React from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Image } from 'react-bootstrap';
-
+import { Image, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 {/*
 Offcanvas exempel
  https://react-bootstrap.netlify.app/docs/components/offcanvas/*/}
@@ -30,6 +30,12 @@ function ShoppingCart({ show, handleClose,cartProducts,updateQuantity, removeFro
             </div>
         ))}
 
+        <div className="text-center">
+        <Link to="/">
+  <Button className="btn-success">Till kassan</Button>
+</Link>
+        </div>
+ 
       </Offcanvas.Body>
     </Offcanvas>
   );
