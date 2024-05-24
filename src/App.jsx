@@ -7,15 +7,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Meny from './pages/Meny'
 import React, { useState } from 'react';
 import ShoppingCart from './components/ShoppingCart'; 
-function App() {
+import Login from './pages/Login'
+import Register from './pages/Register'
 
+function App() {
+  const [IsUserSignedIn, setUserStatus] = useState(false);
   const [show, setShow] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [totalQuantity, setTotalQuantity] = useState(0);
 
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const updateUserStatus = (boolean) => {
+    if(boolean)
+      {
+        setUserStatus(true);
+      }
+      else{
+        setUserStatus(false);
+      }
+
+
+  }
+
+ 
   const addToCart = (item) => {
     const existingProduct = cartProducts.find((product) => product.id === item.id);
     if (existingProduct) {
@@ -33,7 +50,7 @@ function App() {
     setCartProducts(cartProducts.filter((product) => product.id !== item.id));
     setTotalQuantity(totalQuantity - item.quantity);
   };
-  
+
     const updateQuantity = (index, ButtonClickEvent) => {
     const updatedCartProducts = [...cartProducts];
     if (ButtonClickEvent === 'increaseQ') {
@@ -50,13 +67,14 @@ function App() {
     
    <div className="bg-dark text-light p-3">
 
-      <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
-
     <Router>
-    <Navbar handleShow={handleShow} totalQuantity={totalQuantity} />
+    <ShoppingCart show={show} handleClose={handleClose} cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
+    <Navbar handleShow={handleShow} totalQuantity={totalQuantity} IsUserSignedIn={IsUserSignedIn} updateUserStatus={updateUserStatus}  />
  <Routes>
    <Route path ="/" element={<Home />} />
    <Route path ="/Meny" element={<Meny addToCart={addToCart} />} />
+   <Route path ="/Login" element={<Login setUserStatus={setUserStatus}/>} />
+   <Route path ="/Register" element={<Register />} />
  </Routes>
    </Router>
    </div>
