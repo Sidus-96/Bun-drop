@@ -30,11 +30,23 @@ function ShoppingCart({ show, handleClose,cartProducts,updateQuantity, removeFro
             </div>
         ))}
 
-        <div className="text-center">
-        <Link to="/">
-  <Button className="btn-success">Till kassan</Button>
-</Link>
-        </div>
+
+{cartProducts.length > 0 ? (
+                      <div className="text-center">
+                      <Link to="/Kassa">
+                <Button onClick={handleClose} className="btn-success">Till kassan</Button>
+              </Link>
+                      </div>
+                ) : (
+                  <div className="text-center">
+                   <p>
+                    Oj oj oj! Här var det tomt med mat! <br/>Kika gärna på vår utsökta meny och hitta dagens måltid! 
+                   </p>
+                      </div>
+                 
+                )}
+
+    
  
       </Offcanvas.Body>
     </Offcanvas>

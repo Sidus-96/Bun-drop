@@ -40,9 +40,11 @@ function Login( {setUserStatus} ){
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Lössenord" onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
+      <Link to="/">
       <Button variant="primary" type="submit">
         Logga in
       </Button>
+      </Link>
     </Form>
     <Link to="/Register">
     <Button className='mt-4'>Skapa konto</Button>

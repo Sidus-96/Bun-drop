@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import ShoppingCart from './components/ShoppingCart'; 
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Kassa from './pages/Kassa'
 
 function App() {
   const [IsUserSignedIn, setUserStatus] = useState(false);
@@ -75,6 +76,7 @@ function App() {
    <Route path ="/Meny" element={<Meny addToCart={addToCart} />} />
    <Route path ="/Login" element={<Login setUserStatus={setUserStatus}/>} />
    <Route path ="/Register" element={<Register />} />
+   <Route path ="/Kassa" element={<Kassa cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
  </Routes>
    </Router>
    </div>
