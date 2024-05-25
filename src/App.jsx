@@ -74,7 +74,7 @@ function App() {
  <Routes>
    <Route path ="/" element={<Home />} />
    <Route path ="/Meny" element={<Meny addToCart={addToCart} />} />
-   <Route path ="/Login" element={<Login setUserStatus={setUserStatus}/>} />
+   <Route path ="/Login" element={<Login updateUserStatus={updateUserStatus} />} />
    <Route path ="/Register" element={<Register />} />
    <Route path ="/Kassa" element={<Kassa cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
  </Routes>

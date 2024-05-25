@@ -1,6 +1,6 @@
 #Paket
 npm install json-server
-
+npm start
 npx json-server --watch database/db.json --port 3005
 
 

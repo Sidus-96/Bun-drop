@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom'
+import { useNavigate,Link  } from 'react-router-dom'
 
-function Login( {setUserStatus} ){
+function Login( {updateUserStatus} ){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
   
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,10 +17,11 @@ function Login( {setUserStatus} ){
           .then((data) => {
             const user = data.find((user) => user.username === username && user.password === password);
             if (user) {
-                setUserStatus(true);
+                updateUserStatus(true);
+                navigate('/');
             } 
             else {
-              setUserStatus(false);
+              updateUserStatus(false);
             }
           })
          
@@ -40,11 +42,11 @@ function Login( {setUserStatus} ){
         <Form.Label>Password</Form.Label>
         <Form.Control type="password" placeholder="Lössenord" onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
-      <Link to="/">
-      <Button variant="primary" type="submit">
+
+      <Button variant="primary" type="submit" >
         Logga in
       </Button>
-      </Link>
+   
     </Form>
     <Link to="/Register">
     <Button className='mt-4'>Skapa konto</Button>

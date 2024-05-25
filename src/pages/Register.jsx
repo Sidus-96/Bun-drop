@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Register( ){
     const navigate = useNavigate();
@@ -54,8 +54,9 @@ navigate('/Login');
         <Form.Label>Lösenord</Form.Label>
         <Form.Control type="password" placeholder="Lösenord" onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
-    </Form>
-  </div>
+      <Button type="submit" className='mt-4'>Registrera nytt konto</Button>
+    </Form> 
+    </div>
 </div>
      
     );
