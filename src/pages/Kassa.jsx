@@ -7,11 +7,15 @@ import swishLogo from '../media_components/swish_logo.svg'
 
 function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
 
+
+    const [PersonDetails, setPersonDetails] =useState ({name:'', adress:'', ZipCode:'',city:''});
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
     const [showCardForm, setShowCardForm] = useState(false);
     const [showSwishForm, setShowSwishForm] = useState(false);
+    const [CardDetails, setCardDetails] = useState({name:'', cardNmber:'', Month:'',year:'',cvc:'',});
+    const [swishDetails, setSwishDetails] = useState('');
 
     useEffect(() => {
       const totalSum = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
@@ -19,12 +23,36 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
     }, [cartProducts]);
 
     const ButtonClickCardForm = () => {
+      setShowSwishForm(false);
       setShowCardForm(!showCardForm);
+      setSwishDetails('');
     };
 
     const ButtonClickSwishForm = () => {
-      setShowSwishForm(!showCardForm);
+      setShowCardForm(false);
+      setShowSwishForm(true);
+      setCardDetails({ name:'', cardNumber:'', month:'', year:'', cvv:'' }); 
     };
+
+   {/* https://www.telerik.com/blogs/react-basics-react-forms-examples */}
+
+   //Kunna hantera flera fält
+   
+   const handlePersonDetailsFormChange = (e) => {
+    const { name, value } = e.target;
+    setPersonDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleCardDetailsFormChange = (e) => {
+    const { name, value } = e.target;
+    setCardDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -81,21 +109,21 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
   <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label>Personuppgifter</Form.Label>
-        <Form.Control type="text" placeholder="För- och efternamn" onChange={(e) => setUsername(e.target.value)}/>
+        <Form.Control type="text" placeholder="För- och efternamn" name="name" value={PersonDetails.name} onChange={handlePersonDetailsFormChange} />
       
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Adress</Form.Label>
-        <Form.Control type="text" placeholder="adress" onChange={(e) => setPassword(e.target.value)} />
+        <Form.Control type="text" placeholder="adress" name="adress" value={PersonDetails.adress} onChange={handlePersonDetailsFormChange} />
         <div className="mt-3 mb-4 d-flex">
           <div >
         <Form.Label>Postnummer</Form.Label>
-        <Form.Control style={{width: '100px', marginRight: "10px"}} type="number" maxLength="5" placeholder="xxx xx" onChange={(e) => setPassword(e.target.value)} />
+        <Form.Control style={{width: '100px', marginRight: "10px"}} type="number" maxLength="5" placeholder="xxx xx" name="ZipCode" value={PersonDetails.ZipCode} onChange={handlePersonDetailsFormChange}/>
         </div>
         <div >
         <Form.Label>Stad</Form.Label>
-        <Form.Control style={{width: '130px'}} type="text" maxLength="12" placeholder="" onChange={(e) => setPassword(e.target.value)} />
+        <Form.Control style={{width: '130px'}} type="text" maxLength="12" placeholder="" name="city" value={PersonDetails.city} onChange={handlePersonDetailsFormChange} />
         </div>
         </div>
         <div>
@@ -106,38 +134,52 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
 </svg>
 
 {/* nedan är swish*/}
-<Image src={swishLogo} width="60" height="55" ></Image>
+<Image onClick={ButtonClickSwishForm}  src={swishLogo} width="60" height="55" ></Image>
 <div>
 {showCardForm && (
   <div> 
    <div className="mt-3 mb-4 d-flex">
    <div >
  <Form.Label>Namn</Form.Label>
- <Form.Control style={{width: '200px', marginRight: "10px"}} type="text" placeholder="" onChange={(e) => setPassword(e.target.value)} />
+ <Form.Control style={{width: '200px', marginRight: "10px"}} type="text" placeholder="" name="name" value={CardDetails.name} onChange={handleCardDetailsFormChange}  />
  </div>
  <div >
  <Form.Label>Kortnummer</Form.Label>
- <Form.Control  type="text" maxLength="16" placeholder="" onChange={(e) => setPassword(e.target.value)} />
+ <Form.Control  type="text" maxLength="16" placeholder="" name="cardNmber" value={CardDetails.cardNmber} onChange={handleCardDetailsFormChange}  />
  </div>
 
  </div>
  <div className="mt-3 mb-4 d-flex">
    <div >
  <Form.Label>Månad</Form.Label>
- <Form.Control style={{width: '55px', marginRight: "10px"}} type="text" maxLength="2" placeholder="MM" onChange={(e) => setPassword(e.target.value)} />
+ <Form.Control style={{width: '55px', marginRight: "10px"}} type="text" maxLength="2" placeholder="MM" name="month" value={CardDetails.month} onChange={handleCardDetailsFormChange}  />
  </div>
  <div >
  <Form.Label>År</Form.Label>
- <Form.Control style={{width: '50px', marginRight: "10px"}} type="text" maxLength="2" placeholder="YY" onChange={(e) => setPassword(e.target.value)} />
+ <Form.Control style={{width: '50px', marginRight: "10px"}} type="text" maxLength="2" placeholder="YY" name="year" value={CardDetails.year} onChange={handleCardDetailsFormChange} />
  </div>
  <div >
- <Form.Label>CVV</Form.Label>
- <Form.Control style={{width: '60px'}} type="text" maxLength="3" placeholder="" onChange={(e) => setPassword(e.target.value)} />
+ <Form.Label>CVC</Form.Label>
+ <Form.Control style={{width: '60px'}} type="text" maxLength="3" placeholder="" value={CardDetails.cvc} name="cvc" onChange={handleCardDetailsFormChange}/>
  </div>
 
  </div>
  </div>
       )}
+          {showSwishForm && (
+        <div>
+          <div className="mt-3 mb-4 d-flex">
+            <div>
+              <Form.Label>Telefon Nummer</Form.Label>
+              <Form.Control
+                style={{ width: '200px', marginRight: '10px' }}type="text" placeholder="" onChange={(e) => setSwishDetails(e.target.value)}/>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
 </div>
         </div>
       </Form.Group>
