@@ -1,22 +1,33 @@
 import React, { useState, useEffect  } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom'
 import { Image } from 'react-bootstrap';
 import swishLogo from '../media_components/swish_logo.svg'
 
 function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
 
+  const [PersonDetails, setPersonDetails] = useState({
+    name: { value: '', error: '' },
+    address: { value: '', error: '' },
+    zipCode: { value: '', error: '' },
+    city: { value: '', error: '' },
+  });
 
-    const [PersonDetails, setPersonDetails] =useState ({name:'', adress:'', ZipCode:'',city:''});
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
     const [showCardForm, setShowCardForm] = useState(false);
     const [showSwishForm, setShowSwishForm] = useState(false);
-    const [CardDetails, setCardDetails] = useState({name:'', cardNmber:'', Month:'',year:'',cvc:'',});
-    const [swishDetails, setSwishDetails] = useState('');
+    const [CardDetails, setCardDetails] = useState({
+      name:{ value: '', error:''},
+      cardNmber:{ value: '', error: ''},
+      month:{ value: '', error: ''},
+      year:{value: '', error: ''},
+      cvc:{value: '', error: ''}
+    });
 
+    const [swishDetails, setSwishDetails] = useState({number:{value:'', error:''}});
+   
     useEffect(() => {
       const totalSum = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
       setTotalPrice(totalSum);
@@ -31,28 +42,163 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
     const ButtonClickSwishForm = () => {
       setShowCardForm(false);
       setShowSwishForm(true);
-      setCardDetails({ name:'', cardNumber:'', month:'', year:'', cvv:'' }); 
+    //  setCardDetails({ name:'', cardNumber:'', month:'', year:'', cvv:'' }); 
     };
-
-   {/* https://www.telerik.com/blogs/react-basics-react-forms-examples */}
 
    //Kunna hantera flera fält
    
    const handlePersonDetailsFormChange = (e) => {
     const { name, value } = e.target;
+    let error="";
+
+   
+    if(e.target.name === "name")
+      {
+        if(value.length <2)
+          {
+            error=("Namn måste vara längre än 2 bokstäver")
+          }
+          else{
+            error="";
+          }
+      }
+      else if(e.target.name === "address")
+        {
+          if(value.length <2)
+            {
+              error=("Namn måste vara längre än 2 bokstäver")
+            }
+            else{
+              error="";
+            }
+        }
+        else if(e.target.name === "address")
+          {
+            if(value.length <2)
+              {
+                error=("Adress måste vara längre än 2 bokstäver")
+              }
+              else{
+                error="";
+              }
+          }
+          else if(e.target.name === "zipCode")
+            {
+              if (isNaN(value)) {
+                error = 'Postnummer måste vara ett nummer';
+              }
+              //else if på nedan då man får hantera första felet först.
+              else if(value.trim().length <5)
+                {
+                  error=("Postnummer måste vara 5 siffror")
+                }
+                else{
+                  error="";
+                }
+            }
+            else if(e.target.name === "city")
+              {
+                if(value.length <3)
+                  {
+                    error=("Skriv in din stad")
+                  }
+                  else{
+                    error="";
+                  }
+              }
+
+     
+  
+    
     setPersonDetails((prevDetails) => ({
       ...prevDetails,
-      [name]: value,
+      [name]:  { value, error },
     }));
   };
 
   const handleCardDetailsFormChange = (e) => {
     const { name, value } = e.target;
+    let error="";
+
+    if(e.target.name === "name")
+      {
+        if(value.length <2)
+          {
+            error=("Namn måste vara längre än 2 bokstäver")
+          }
+          else{
+            error="";
+          }
+      }
+      else if(e.target.name === "cardNmber")
+        {
+          if (isNaN(value)) {
+            error = 'Kortnummer måste vara siffror';
+          }
+          else if(value.length <16)
+            {
+              error=("Kortnummer är 16 siffror")
+            }
+            else{
+              error="";
+            }
+        }
+
+        if(e.target.name === "month")
+          {
+            if (isNaN(value)) {
+              error = 'Månad behöver vara i siffror'
+            }
+            else if(value >12)
+              {
+                return;
+              }
+
+            else if(value.length <2)
+              {
+                error=("Format MM")
+              }
+              else{
+                error="";
+              }
+
+          }
+          if(e.target.name === "year")
+            {
+              if (isNaN(value)) {
+                error = 'År behöver vara i siffror'
+              }
+              else if(value.length <2)
+                {
+                  error=("Format YY")
+                }
+                else{
+                  error="";
+                }
+  
+            }
+            if(e.target.name === "cvc")
+              {
+                if (isNaN(value)) {
+                  error = 'cvc behöver vara i siffror'
+                }
+                else if(value.length <2)
+                  {
+                    error=("Format xxx")
+                  }
+                  else{
+                    error="";
+                  }
+    
+              }
+
+
     setCardDetails((prevDetails) => ({
       ...prevDetails,
-      [name]: value,
+      [name]: {value,error}
     }));
   };
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -109,23 +255,29 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
   <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label>Personuppgifter</Form.Label>
-        <Form.Control type="text" placeholder="För- och efternamn" name="name" value={PersonDetails.name} onChange={handlePersonDetailsFormChange} />
-      
+        <Form.Control type="text" placeholder="För- och efternamn" name="name" value={PersonDetails.name.value} onChange={handlePersonDetailsFormChange} />
+        <p>{PersonDetails.name.error}</p>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Adress</Form.Label>
-        <Form.Control type="text" placeholder="adress" name="adress" value={PersonDetails.adress} onChange={handlePersonDetailsFormChange} />
-        <div className="mt-3 mb-4 d-flex">
+        <Form.Control type="text" placeholder="adress" name="address" value={PersonDetails.address.value} onChange={handlePersonDetailsFormChange} />
+     <p>{PersonDetails.address.error}</p>
+        <div className="mt-3 d-flex">
           <div >
         <Form.Label>Postnummer</Form.Label>
-        <Form.Control style={{width: '100px', marginRight: "10px"}} type="number" maxLength="5" placeholder="xxx xx" name="ZipCode" value={PersonDetails.ZipCode} onChange={handlePersonDetailsFormChange}/>
+        <Form.Control style={{ width: '100px', marginRight: "10px"}} type="text" maxLength="5" placeholder="xxx xx" name="zipCode" value={PersonDetails.zipCode.value} onChange={handlePersonDetailsFormChange}/>
+        
         </div>
+        
         <div >
         <Form.Label>Stad</Form.Label>
-        <Form.Control style={{width: '130px'}} type="text" maxLength="12" placeholder="" name="city" value={PersonDetails.city} onChange={handlePersonDetailsFormChange} />
+        <Form.Control style={{width: '130px'}} type="text" maxLength="12" placeholder="" name="city" value={PersonDetails.city.value} onChange={handlePersonDetailsFormChange} />
+        
         </div>
         </div>
+        <p >{PersonDetails.zipCode.error}</p>
+        <p>{PersonDetails.city.error}</p>
         <div>
           <h4>Betalningsalternativ</h4>
           <svg onClick={ButtonClickCardForm} style={{marginRight: '10px'}} xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-credit-card-2-front-fill" viewBox="0 0 16 16">
@@ -138,32 +290,38 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
 <div>
 {showCardForm && (
   <div> 
-   <div className="mt-3 mb-4 d-flex">
+   <div className="mt-3 d-flex">
    <div >
  <Form.Label>Namn</Form.Label>
- <Form.Control style={{width: '200px', marginRight: "10px"}} type="text" placeholder="" name="name" value={CardDetails.name} onChange={handleCardDetailsFormChange}  />
+ <Form.Control style={{width: '200px', marginRight: "10px"}} type="text" placeholder="" name="name" value={CardDetails.name.value} onChange={handleCardDetailsFormChange}  />
  </div>
  <div >
  <Form.Label>Kortnummer</Form.Label>
- <Form.Control  type="text" maxLength="16" placeholder="" name="cardNmber" value={CardDetails.cardNmber} onChange={handleCardDetailsFormChange}  />
+ <Form.Control  type="text" maxLength="16" placeholder="xxxxxxxxxxxxxxxx" name="cardNmber" value={CardDetails.cardNmber.value} onChange={handleCardDetailsFormChange}  />
+ <p>{CardDetails.cardNmber.error}</p>
  </div>
 
  </div>
+ <p>{CardDetails.name.error}</p>
+
  <div className="mt-3 mb-4 d-flex">
    <div >
  <Form.Label>Månad</Form.Label>
- <Form.Control style={{width: '55px', marginRight: "10px"}} type="text" maxLength="2" placeholder="MM" name="month" value={CardDetails.month} onChange={handleCardDetailsFormChange}  />
+ <Form.Control style={{width: '55px', marginRight: "10px"}} type="text" maxLength="2" placeholder="MM" name="month" value={CardDetails.month.value} onChange={handleCardDetailsFormChange}  />
  </div>
  <div >
  <Form.Label>År</Form.Label>
- <Form.Control style={{width: '50px', marginRight: "10px"}} type="text" maxLength="2" placeholder="YY" name="year" value={CardDetails.year} onChange={handleCardDetailsFormChange} />
+ <Form.Control style={{width: '50px', marginRight: "10px"}} type="text" maxLength="2" placeholder="YY" name="year" value={CardDetails.year.value} onChange={handleCardDetailsFormChange} />
  </div>
  <div >
  <Form.Label>CVC</Form.Label>
- <Form.Control style={{width: '60px'}} type="text" maxLength="3" placeholder="" value={CardDetails.cvc} name="cvc" onChange={handleCardDetailsFormChange}/>
+ <Form.Control style={{width: '60px'}} type="text" maxLength="3" placeholder="" value={CardDetails.cvc.value} name="cvc" onChange={handleCardDetailsFormChange}/>
  </div>
 
  </div>
+ <p>{CardDetails.month.error}</p>
+ <p>{CardDetails.year.error}</p>
+ <p>{CardDetails.cvc.error}</p>
  </div>
       )}
           {showSwishForm && (
@@ -172,7 +330,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
             <div>
               <Form.Label>Telefon Nummer</Form.Label>
               <Form.Control
-                style={{ width: '200px', marginRight: '10px' }}type="text" placeholder="" onChange={(e) => setSwishDetails(e.target.value)}/>
+                style={{ width: '200px', marginRight: '10px' }} name="swishnummer" type="text" placeholder="" onChange = {setSwishDetails}/>
             </div>
           </div>
         </div>
