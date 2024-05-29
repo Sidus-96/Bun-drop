@@ -24,7 +24,29 @@ function Register( ){
 body: JSON.stringify(newUser),
 };
 
-fetch("http://localhost:3005/users", postOptions);
+fetch("http://localhost:3005/users", postOptions) .then(response => response.json())
+.then(data => {
+  //När vi har fått userid från data skapa upp en ny tom favorit produkter till användaren
+
+  const newEmptyFavorite ={
+    userid:data.id,
+    favoriteArticles: []
+
+  }
+const postOptions = { 
+        method: "POST", 
+      headers:{"Content-type": "application/json"},
+body: JSON.stringify(newEmptyFavorite),
+};
+fetch("http://localhost:3005/userFavorites", postOptions);
+
+
+
+});
+
+
+
+
 
 navigate('/Login');
                 

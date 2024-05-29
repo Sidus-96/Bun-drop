@@ -17,11 +17,11 @@ function Login( {updateUserStatus} ){
           .then((data) => {
             const user = data.find((user) => user.username === username && user.password === password);
             if (user) {
-                updateUserStatus(true);
+                updateUserStatus(true,user.id,user.username);
                 navigate('/');
             } 
             else {
-              updateUserStatus(false);
+              updateUserStatus(false,'','');
             }
           })
          

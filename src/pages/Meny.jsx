@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import { Image } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-function Meny({ addToCart }) {
+function Meny({ addToCart, addToFavorites }) {
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
 
@@ -77,7 +77,8 @@ function Meny({ addToCart }) {
             <span>{product.description}</span>
             <p>{product.price} kr</p>
             <Button onClick={() => addToCart(product)}>Lägg i varukorg</Button>
-          </div>
+            <Button onClick={() => addToFavorites(product)}>Lägg i favorit</Button>
+         </div>
         </div>
       </div>
     ))}

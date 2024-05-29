@@ -342,14 +342,13 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
             price: product.price
           }))
         };
-      
-        fetch('http://localhost:3005/purchaseOrders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(Order)
-        })
+      const postOptions ={
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'},
+      body: JSON.stringify(Order),
+    };
+        fetch('http://localhost:3005/purchaseOrders',postOptions)
           .then(response => response.json())
           .then(data => {
             console.log('Success:', data);
