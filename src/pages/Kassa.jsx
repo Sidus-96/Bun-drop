@@ -1,18 +1,22 @@
 import React, { useState, useEffect  } from 'react'
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Image } from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom'
 import swishLogo from '../media_components/swish_logo.svg'
 
-function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
+function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clearCart } ){
+  const navigate = useNavigate();
 
   const [PersonDetails, setPersonDetails] = useState({
+    email: { value: '', error: '' },
     name: { value: '', error: '' },
     address: { value: '', error: '' },
     zipCode: { value: '', error: '' },
     city: { value: '', error: '' },
   });
-
+  const [showAlert, setShowAlert] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
@@ -26,33 +30,57 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
       cvc:{value: '', error: ''}
     });
 
-    const [swishDetails, setSwishDetails] = useState({number:{value:'', error:''}});
+    const [swishDetails, setSwishDetails] = useState({
+      number:{value: '', error: ''}});
    
     useEffect(() => {
       const totalSum = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
       setTotalPrice(totalSum);
     }, [cartProducts]);
 
+        //Om kund väljer att betala med kort så öppnas kortfältet upp och resetrar swishuppgifterna
+
     const ButtonClickCardForm = () => {
       setShowSwishForm(false);
       setShowCardForm(!showCardForm);
-      setSwishDetails('');
+      setSwishDetails({number:{value: '', error: ''}});
     };
 
+    //Om kund väljer att betala med swish så öppnas swishfältet upp och resetrar kortuppgifterna
     const ButtonClickSwishForm = () => {
       setShowCardForm(false);
       setShowSwishForm(true);
-    //  setCardDetails({ name:'', cardNumber:'', month:'', year:'', cvv:'' }); 
+    setCardDetails({
+      name:{ value: '', error:''},
+      cardNmber:{ value: '', error: ''},
+      month:{ value: '', error: ''},
+      year:{value: '', error: ''},
+      cvc:{value: '', error: ''}
+    }); 
     };
 
    //Kunna hantera flera fält
    
+     //hantera när kunden skriver in sina uppgifter.
    const handlePersonDetailsFormChange = (e) => {
+    setShowAlert(false);
     const { name, value } = e.target;
     let error="";
 
+    //validity.valid är webbläsarens egna inbyggda sätt att validera mejladress
+    if(e.target.name === "email")
+      {
+        if(!e.target.validity.valid)
+          {
+            error="Skriv in giltlig e-post adress"
+          }
+          else{
+            error="";
+          }
+
+      }
    
-    if(e.target.name === "name")
+    else if(e.target.name === "name")
       {
         if(value.length <2)
           {
@@ -107,16 +135,14 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
                   }
               }
 
-     
-  
-    
     setPersonDetails((prevDetails) => ({
       ...prevDetails,
       [name]:  { value, error },
     }));
   };
-
+//hantera när man skriver in sina kortuppgifter
   const handleCardDetailsFormChange = (e) => {
+    setShowAlert(false);
     const { name, value } = e.target;
     let error="";
 
@@ -198,28 +224,147 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
       [name]: {value,error}
     }));
   };
+  
+//hantera när man skriver in sitt nummer i swishfältet
+  const handleSwishDetailsFormChange = (e) => {
+    setShowAlert(false);
+    const { name, value } = e.target;
+    let error = "";
+
+    if (name === "number") {
+      if (isNaN(value)) 
+         {
+        error = "Telefonnumret måste vara i siffror";
+      }
+       else if (value.length < 10) {
+        error = "Telefonnumret är minst 10 siffror";
+      } 
+      else
+       {
+        error = "";
+      }
+    }
+
+    setSwishDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: { value, error }
+    }));
+  };
+
+  const validateFields = () => {
+    let validatedForms= false;
+    const boolPersonDetailsError = Object.keys(PersonDetails).some((key) => PersonDetails[key].error !== '');
+    const boolPersonDetailsErrorEmpty = Object.keys(PersonDetails).some((key) => PersonDetails[key].value.trim() === '');
+    let boolValidatePayment=false;
+  
+    
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        fetch('http://localhost:3005/users')
-          .then((response) => response.json())
-          .then((data) => {
-            const user = data.find((user) => user.username === username && user.password === password);
-            if (user) {
-               
-            } 
-            else {
+    if (showCardForm)
+      {
+        const boolCardDetailsIsEmpty = Object.keys(CardDetails).some((key) => CardDetails[key].value.trim() === '');
+        const boolCardDetailsErrors = Object.keys(CardDetails).some((key) => CardDetails[key].error !== '');
+        if(!boolCardDetailsIsEmpty && !boolCardDetailsErrors)
+          {
             
-            }
-          })
+            boolValidatePayment=true;
+          }
+          
+
+      }
+      else if(showSwishForm)
+        {
+          const boolSwishDetailsIsEmpty = Object.keys(swishDetails).some((key) => swishDetails[key].value.trim() === '');
+          const boolSwishDetailsIsError = Object.keys(swishDetails).some((key) => swishDetails[key].error !== '');
          
-      };
+          if(!boolSwishDetailsIsEmpty && !boolSwishDetailsIsError)
+            {
+              
+              boolValidatePayment=true;
+            }
+        }
 
 
-   
+        if( !boolPersonDetailsError && !boolPersonDetailsErrorEmpty && boolValidatePayment)
+          {
+           
+            
+            validatedForms =true;
+          }
+          
+          return validatedForms;
 
+
+
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // När man har klickat på submit så ska alla fälten valideras en sista gång
+    let validated = validateFields();
+ 
+
+  if(validated)
+    {
+      let payMethod ='';
+      if (showCardForm)
+        {
+          payMethod ='Debit Card';
+        }
+        else if(showSwishForm)
+          {
+            payMethod='swish';
+          }
+        
+          if( UserDetails.user.bool === false)
+            {
+              UserDetails.user.username = 'Guest'
+            }
+          
+          //skapa upp orderobjektet
+        const Order = {
+          userId:UserDetails.user.userid,
+          username: UserDetails.user.username,
+          
+          paymentMethod:payMethod,
+          customerDetails: {
+            emailaddress:PersonDetails.email.value,
+            customerName:PersonDetails.name.value,
+            deliveryAddress:PersonDetails.address.value,
+            zipCode:PersonDetails.zipCode.value,
+            city:PersonDetails.city.value,
+          },
+          articles: cartProducts.map(product => ({
+            id: product.id,
+            title: product.title,
+            quantity: product.quantity,
+            price: product.price
+          }))
+        };
+      
+        fetch('http://localhost:3005/purchaseOrders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(Order)
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+            //rensa hela kundkorgen när ordern är lagd
+            clearCart();
+
+            navigate("/confirmation", { state: {data}});
+
+          })
+    }
+    else{
+      setShowAlert(true);
+    }
+  };
+      
     return(
 
    <div className="mt-5" style={{ height: 'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
@@ -254,7 +399,10 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
   <div>
   <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicName">
-        <Form.Label>Personuppgifter</Form.Label>
+      <Form.Label>E-postadress</Form.Label>
+        <Form.Control type="email" placeholder="Mejl" name="email" value={PersonDetails.email.value} onChange={handlePersonDetailsFormChange} required />
+        <p>{PersonDetails.email.error}</p>
+        <Form.Label>Namn</Form.Label>
         <Form.Control type="text" placeholder="För- och efternamn" name="name" value={PersonDetails.name.value} onChange={handlePersonDetailsFormChange} />
         <p>{PersonDetails.name.error}</p>
       </Form.Group>
@@ -330,9 +478,10 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
             <div>
               <Form.Label>Telefon Nummer</Form.Label>
               <Form.Control
-                style={{ width: '200px', marginRight: '10px' }} name="swishnummer" type="text" placeholder="" onChange = {setSwishDetails}/>
+                style={{ width: '200px', marginRight: '10px' }} maxLength="10" type="text" placeholder="070xxxxxxx" name="number" value={swishDetails.number.value} onChange={handleSwishDetailsFormChange}/>
             </div>
           </div>
+          <p>{swishDetails.number.error}</p>
         </div>
       )}
 
@@ -345,7 +494,16 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart } ){
         Slutför köp
       </Button>
     </Form>
-   
+    {showAlert && (
+      <div>
+
+    <Alert variant="danger" onClose={() => setShowAlert(false)} >
+        <p>
+          Alla fält är inte ifyllda
+        </p>
+      </Alert>
+      </div>
+    )}
     
   </div>
 </div>

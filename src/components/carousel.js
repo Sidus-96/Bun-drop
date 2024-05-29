@@ -13,7 +13,7 @@ function burgerCarousel() {
               
                 <h3>Våra bästsäljare</h3>
                 <style> {`.carousel-control-prev, .carousel-control-next {   display: none;`}</style>
-                <Carousel interval={4000}>
+                <Carousel interval={3800}>
                     <Carousel.Item>
                     <div className="d-flex justify-content-center align-items-center">
                     <Image src={burger1} roundedCircle width="500" />
