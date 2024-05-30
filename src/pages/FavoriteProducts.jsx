@@ -22,7 +22,7 @@ function FavoriteProducts({favoriteProducts, addToCart, DeleteFromFavorites}){
            <div className='row '>
         {favoriteProductsUser.map(product => (
          <div className='col-md-6 mb-3 mt-5' key={product.id}> 
-<Card style={{ width: '18rem' }}>
+<Card style={{ width: '20rem' }}>
       <Card.Img variant="top" src={product.image} style={{height:"15rem"}} />
       <Card.Body style={{ backgroundColor: '#6C757D', color: '#fff'   }}>
         <Card.Title>{product.title}</Card.Title>
