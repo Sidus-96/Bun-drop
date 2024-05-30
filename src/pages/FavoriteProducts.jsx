@@ -6,7 +6,6 @@ function FavoriteProducts({favoriteProducts, addToCart, DeleteFromFavorites}){
     const [favoriteProductsUser, setFavoriteProducts] = useState([]);
 
     useEffect(() => {
-        console.log("checkar första Array i favoritSidan",favoriteProducts );
         fetch("http://localhost:3005/menu")
           .then(res => res.json())
           .then(data  => {
@@ -29,8 +28,15 @@ function FavoriteProducts({favoriteProducts, addToCart, DeleteFromFavorites}){
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{product.description}
         </Card.Text>
-        <Button onClick={() => addToCart(product)}>Lägg i varukorg</Button>
-        <Button onClick={() => DeleteFromFavorites(product)}>Ta bort favorit</Button>
+        <div className='d-flex'>
+          <div className='me-5'>
+          <Button className='btn btn-success' onClick={() => addToCart(product)}>Lägg i varukorg</Button>
+          </div>
+          <div>
+          <Button className='btn btn-danger' onClick={() => DeleteFromFavorites(product)}>Ta bort favorit</Button>
+
+          </div>
+        </div>
       </Card.Body>
     </Card>
           </div>

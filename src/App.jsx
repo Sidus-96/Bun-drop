@@ -28,13 +28,8 @@ function App() {
     if(boolean)
       {
         setUserStatus({ user: { bool: true, userid: userid,username:username } });
-        console.log("jjje",UserDetails);
-
-        console.log(UserDetails.user.bool);
-        console.log("namne",UserDetails.user.username);
-        console.log("frånlogin",userid);
-        console.log("frånlogin",username);
-        refreshFavorites(userid);
+      
+        refreshFavorites(userid); //Koilla om användare har favoriter och lägger in dom i favoriter.
 
       }
       else{
@@ -111,8 +106,7 @@ fetch('http://localhost:3005/userFavorites/')
 .then((response) => response.json())
 .then((data) => {
   const findUserFavorites = data.find((user) => user.userid === UserDetails.user.userid);
-  console.log("checkarFavorite", findUserFavorites);
-
+ 
   if (findUserFavorites) {
 
     const checkExistingProduct = findUserFavorites.favoriteArticles.find((article) => article.productId === item.id);
@@ -140,7 +134,6 @@ fetch('http://localhost:3005/userFavorites/')
       userid,
       products: [...prevState.products, item.id]
       }));
-      console.log("nytt uppdaterat",favoriteProducts );
     }
   }
 })
@@ -158,8 +151,7 @@ const DeleteFromFavorites = (item) => {
             ...findUserFavorites,
             favoriteArticles: updatedFavoriteArticles
           };
-          console.log("raderat",updatedFavorite);
-          console.log("itemsomska",item);
+
           const postOptions = {
             method: "PUT",
             headers: { "Content-type": "application/json" },
@@ -169,13 +161,13 @@ const DeleteFromFavorites = (item) => {
             .then(() => {
               const userid = UserDetails.user.userid;
               const favoriteProductsArray = favoriteProducts.products.filter((productId) => productId !== item.id);
-              console.log("nya lsitan",favoriteProductsArray);
+
               setFavoritesProducts(prevState => ({
                 userid,
                 products: favoriteProductsArray
               }));
             });
-            console.log("Helt klar",favoriteProducts);
+        
           
       }
     });
@@ -191,12 +183,13 @@ const DeleteFromFavorites = (item) => {
     <Navbar handleShow={handleShow} totalQuantity={totalQuantity} UserDetails={UserDetails} updateUserStatus={updateUserStatus} favoriteProducts={favoriteProducts} />
  <Routes>
    <Route path ="/" element={<Home />} />
-   <Route path ="/Meny" element={<Meny addToCart={addToCart} addToFavorites={addToFavorites} />} />
+   <Route path ="/Meny" element={<Meny addToCart={addToCart} addToFavorites={addToFavorites} UserDetails={UserDetails}/>} />
    <Route path ="/Login" element={<Login updateUserStatus={updateUserStatus} />} />
    <Route path ="/Register" element={<Register />} />
    <Route path ="/Kassa" element={<Kassa cartProducts={cartProducts} updateQuantity={updateQuantity} removeFromCart={removeFromCart} UserDetails={UserDetails} clearCart={clearCart} />} />
    <Route path ="/Confirmation" element={<Confirmation />} />
    <Route path ="/Favorites" element={<Favorites favoriteProducts={favoriteProducts} addToCart={addToCart} DeleteFromFavorites={DeleteFromFavorites}/>} />
+   <Route path="*" element={<Home />} /> 
  </Routes>
    </Router>
    </div>

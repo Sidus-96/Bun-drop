@@ -254,7 +254,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
   const validateFields = () => {
     let validatedForms= false;
     const boolPersonDetailsError = Object.keys(PersonDetails).some((key) => PersonDetails[key].error !== '');
-    const boolPersonDetailsErrorEmpty = Object.keys(PersonDetails).some((key) => PersonDetails[key].value.trim() === '');
+    const boolPersonDetailsErrorEmpty = Object.keys(PersonDetails).some((key) => PersonDetails[key].value === '');
     let boolValidatePayment=false;
   
     
@@ -262,7 +262,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
 
     if (showCardForm)
       {
-        const boolCardDetailsIsEmpty = Object.keys(CardDetails).some((key) => CardDetails[key].value.trim() === '');
+        const boolCardDetailsIsEmpty = Object.keys(CardDetails).some((key) => CardDetails[key].value=== '');
         const boolCardDetailsErrors = Object.keys(CardDetails).some((key) => CardDetails[key].error !== '');
         if(!boolCardDetailsIsEmpty && !boolCardDetailsErrors)
           {
@@ -274,7 +274,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
       }
       else if(showSwishForm)
         {
-          const boolSwishDetailsIsEmpty = Object.keys(swishDetails).some((key) => swishDetails[key].value.trim() === '');
+          const boolSwishDetailsIsEmpty = Object.keys(swishDetails).some((key) => swishDetails[key].value === '');
           const boolSwishDetailsIsError = Object.keys(swishDetails).some((key) => swishDetails[key].error !== '');
          
           if(!boolSwishDetailsIsEmpty && !boolSwishDetailsIsError)
@@ -351,7 +351,6 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
         fetch('http://localhost:3005/purchaseOrders',postOptions)
           .then(response => response.json())
           .then(data => {
-            console.log('Success:', data);
             //rensa hela kundkorgen när ordern är lagd
             clearCart();
 
