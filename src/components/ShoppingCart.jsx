@@ -10,7 +10,7 @@ function ShoppingCart({ show, handleClose,cartProducts,updateQuantity, removeFro
   return (
     <Offcanvas show={show} onHide={handleClose} placement="end" style={{ backgroundColor: '#212529' }}>
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title style={{ color: '#E1E9F1' }}>Shopping Cart</Offcanvas.Title>
+        <Offcanvas.Title style={{ color: '#E1E9F1' }}>Varukorg</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body style={{ color: '#E1E9F1' }}>
       {cartProducts.map((product, index) => (

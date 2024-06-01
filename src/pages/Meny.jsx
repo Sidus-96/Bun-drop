@@ -48,7 +48,7 @@ function Meny({ addToCart, addToFavorites, UserDetails }) {
    <div className="mb-5 d-flex justify-content-center">
   
         {filters.map((filter) => (
-     <div  key={filter.id}> 
+     <div className='me-1' key={filter.id}> 
       <input type="checkbox" className="btn-check" id={`btn-check-outlined-${filter.id}`} autoComplete="off" 
           onChange={(event) => CheckboxSelected(event, filter.category)}/>
 <label className="btn btn-outline-primary" htmlFor={`btn-check-outlined-${filter.id}`}>{filter.category}</label>
@@ -69,7 +69,7 @@ function Meny({ addToCart, addToFavorites, UserDetails }) {
     .map((product) => (
      
       <div key={product.id} className="col-12 col-md-6 col-lg-4 mb-3">
-        <Card style={{ width: '25rem', background:"#2C3237", color:"white", borderRadius: "50px" }}>
+        <Card  style={{ width: '25rem', background:"#2C3237", color:"white", borderRadius: "50px" }}>
         <div className="text-center mb-1">
         <div style={{ position: 'relative' }}> 
           <Image className="mt-2" style={{ position: 'relative'}} src={product.image} roundedCircle height="200" width="200" />

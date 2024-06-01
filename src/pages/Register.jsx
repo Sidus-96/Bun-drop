@@ -123,7 +123,7 @@ else
    <div className="text-center mt-4" style={{ height: 'auto', display: 'flex', justifyContent: 'center' }}>
     
   <div>
-  <h1 className="mb-4">Logga in</h1>
+  <h1 className="mb-4">Skapa konto</h1>
   <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label>Användarkonto</Form.Label>

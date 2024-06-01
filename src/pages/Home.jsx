@@ -11,7 +11,7 @@ function Home(){
      <Carousel />
      <div className="text-center">
         <p>Välkommen till vår hamburgarekedja! Vi startade för några dagar sedan. </p>
-        vi har olika färdigheter inom olika saker
+        Vi har olika färdigheter inom olika saker
      </div>
      </div>
      

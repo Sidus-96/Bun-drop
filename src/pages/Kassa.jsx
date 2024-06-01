@@ -36,6 +36,10 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
     useEffect(() => {
       const totalSum = cartProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
       setTotalPrice(totalSum);
+      if(totalSum ===0)
+        {
+          navigate("/");
+        }
     }, [cartProducts]);
 
         //Om kund väljer att betala med kort så öppnas kortfältet upp och resetrar swishuppgifterna
@@ -367,7 +371,9 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
 
    <div className="mt-5" style={{ height: 'auto', display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
           {/* Varukorg*/}
+          <h1 className='center mb-3'>Kassan</h1>
           <div style={{textAlign: 'left' }}>
+          
          <div>
   {cartProducts.map((product, index) => (
     
@@ -396,7 +402,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
     {/* Varukorg*/}
     </div>
     <div className="mt-3 mb-4">
-      <h5>Total (inkl. moms): {totalPrice.toFixed(2)} kr</h5>
+      <h5>Totalt (inkl. moms): {totalPrice.toFixed(2)} kr</h5>
     </div>
   <div>
   <Form onSubmit={handleSubmit}>
@@ -411,7 +417,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Adress</Form.Label>
-        <Form.Control type="text" placeholder="adress" name="address" value={PersonDetails.address.value} onChange={handlePersonDetailsFormChange} />
+        <Form.Control type="text" placeholder="Adress" name="address" value={PersonDetails.address.value} onChange={handlePersonDetailsFormChange} />
      <p>{PersonDetails.address.error}</p>
         <div className="mt-3 d-flex">
           <div >

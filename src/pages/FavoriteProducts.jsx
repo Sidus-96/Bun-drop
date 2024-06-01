@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Card from 'react-bootstrap/Card';
+import {Card, Image} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 function FavoriteProducts({favoriteProducts, addToCart, DeleteFromFavorites}){
@@ -19,11 +19,13 @@ function FavoriteProducts({favoriteProducts, addToCart, DeleteFromFavorites}){
      <div className='d-flex justify-content-center' style={{ height: '100vh'}} >
        <div className='container'>
         <h1 className='center'>Se dina favoriter!</h1>
-           <div className='row '>
+           <div className='row'>
         {favoriteProductsUser.map(product => (
-         <div className='col-md-6 mb-3 mt-5' key={product.id}> 
+         <div className='col-md-6 mb-3 mt-5 center' key={product.id}> 
 <Card style={{ width: '20rem' }}>
-      <Card.Img variant="top" src={product.image} style={{height:"15rem"}} />
+  <div className="flex center" style={{ backgroundColor: '#6C757D', color: '#fff'   }}>
+  <Image className="mt-2"  src={product.image} roundedCircle height="200" width="225" />
+      </div>
       <Card.Body style={{ backgroundColor: '#6C757D', color: '#fff'   }}>
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>{product.description}
