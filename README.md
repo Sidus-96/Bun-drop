@@ -1,8 +1,10 @@
 #Paket
+npm install react-bootstrap bootstrap
 npm install json-server
+
+#Starta hemsidan
 npm start
 npx json-server --watch database/db.json --port 3005
-
 
 # Getting Started with Create React App
 

@@ -209,10 +209,9 @@
   ],
   "users": [
     {
-      "userid": 1,
+      "id": "b514",
       "username": "user",
-      "password": "password",
-      "id": "b514"
+      "password": "password"
     },
     {
       "id": "a0fc",
@@ -223,9 +222,67 @@
   "userFavorites": [
     {
       "userid": "a0fc",
-      "favoriteArticles": [],
+      "favoriteArticles": [
+        {
+          "productId": "6"
+        },
+        {
+          "productId": "8"
+        },
+        {
+          "productId": "9"
+        },
+        {
+          "productId": "12"
+        },
+        {
+          "productId": "11"
+        }
+      ],
       "id": "adc0"
+    },
+    {
+      "id": "4aef",
+      "userid": "f991",
+      "favoriteArticles": []
+    },
+    {
+      "id": "570b",
+      "userid": "b514",
+      "favoriteArticles": [
+        {
+          "productId": "1"
+        },
+        {
+          "productId": "2"
+        },
+        {
+          "productId": "3"
+        }
+      ]
     }
   ],
-  "purchaseOrders": [ ]
+  "purchaseOrders": [
+    {
+      "id": "02c4",
+      "userId": "b514",
+      "username": "user",
+      "paymentMethod": "swish",
+      "customerDetails": {
+        "emailaddress": "luke.skywalker@starwars.se",
+        "customerName": "Luke Skywalker",
+        "deliveryAddress": "Tatooine farm 1337",
+        "zipCode": "20552",
+        "city": "Tatooine"
+      },
+      "articles": [
+        {
+          "id": "1",
+          "title": "Klassisk Hamburgare",
+          "quantity": 1,
+          "price": 79
+        }
+      ]
+    }
+  ]
 }
