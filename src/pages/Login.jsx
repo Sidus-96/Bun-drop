@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate,Link  } from 'react-router-dom'
+import { PO_URL,USERS_URL } from '../constants';
 
 function Login( {updateUserStatus} ){
 
@@ -12,7 +13,7 @@ function Login( {updateUserStatus} ){
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch('http://localhost:3005/users')
+        fetch(USERS_URL)
           .then((response) => response.json())
           .then((data) => {
             const user = data.find((user) => user.username === username && user.password === password);

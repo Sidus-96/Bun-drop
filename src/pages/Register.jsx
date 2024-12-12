@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate, Link } from 'react-router-dom'
 import Alert from 'react-bootstrap/Alert';
+import { USERS_URL, User_Favorites_URL } from '../constants';
 
 function Register( ){
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Register( ){
 body: JSON.stringify(newUser),
 };
 
-fetch("http://localhost:3005/users", postOptions) .then(response => response.json())
+fetch(USERS_URL, postOptions) .then(response => response.json())
 .then(data => {
   //När vi har fått userid från data skapa upp en ny tom favorit produkter till användaren
 
@@ -46,7 +47,7 @@ const postOptions = {
       headers:{"Content-type": "application/json"},
 body: JSON.stringify(newEmptyFavorite),
 };
-fetch("http://localhost:3005/userFavorites", postOptions)});
+fetch(User_Favorites_URL, postOptions)});
 navigate('/Login');
 }
 else
@@ -65,7 +66,7 @@ else
         
         if(name === "name")
           {
-            fetch('http://localhost:3005/users')
+            fetch(USERS_URL)
             .then((response) => response.json())
             .then((data) => {
               const user = data.find((user) => user.username === value);

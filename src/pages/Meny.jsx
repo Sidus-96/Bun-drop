@@ -1,6 +1,8 @@
 import React, { useState, useEffect  } from 'react'
 import { Image, Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { MENU_URL, FILTERS_URL } from '../constants';
+
 
 function Meny({ addToCart, addToFavorites, UserDetails }) {
     const [products, setProducts] = useState([]);
@@ -23,13 +25,14 @@ function Meny({ addToCart, addToFavorites, UserDetails }) {
       }
     };
     useEffect(() => {
-      fetch("http://localhost:3005/menu")
+      fetch(MENU_URL)
         .then((res) => res.json())
-        .then((data) => setProducts(data));
-    }, []);
+        .then((data) => setProducts(data)); }, []);
+
+    
 
     useEffect(() => {
-      fetch("http://localhost:3005/filters")
+      fetch(FILTERS_URL)
         .then((res) => res.json())
         .then((data) => setFilters(data));
     }, []);
@@ -72,7 +75,7 @@ function Meny({ addToCart, addToFavorites, UserDetails }) {
         <Card  style={{ width: '25rem', background:"#2C3237", color:"white", borderRadius: "50px" }}>
         <div className="text-center mb-1">
         <div style={{ position: 'relative' }}> 
-          <Image className="mt-2" style={{ position: 'relative'}} src={product.image} roundedCircle height="200" width="200" />
+          <Image className="mt-2" style={{ position: 'relative'}} src={`${process.env.PUBLIC_URL}/${product.image}`} roundedCircle height="200" width="200" />
           {UserDetails.user.bool && (
   <svg   style={{cursor: 'pointer', position: 'absolute', top: '10%',left: '80%',}} onClick={() => addToFavorites(product)} xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-heart-eyes"  viewBox="0 0 16 16" >
        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>

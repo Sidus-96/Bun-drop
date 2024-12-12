@@ -12,6 +12,7 @@ import Register from './pages/Register'
 import Kassa from './pages/Kassa'
 import Favorites from './pages/FavoriteProducts.jsx';
 import Confirmation from './pages/Confirmation.jsx';
+import { User_Favorites_URL } from './constants.js';
 
 function App() {
   const [UserDetails, setUserStatus] = useState({user:{bool:false,userid:'', username:''}});
@@ -83,7 +84,7 @@ function App() {
 //När man loggar in första gången så adderar metoden favoriterna.
 const refreshFavorites=(userid)=>
   {
-    fetch("http://localhost:3005/userFavorites")
+    fetch(User_Favorites_URL)
     .then((res) => res.json())
     .then((data) => {
       const checkExistingUserFavorites = data.find((userFavorites) => userFavorites.userid === userid);
@@ -102,7 +103,7 @@ const refreshFavorites=(userid)=>
 const addToFavorites = (item) => {
       
 //addera
-fetch('http://localhost:3005/userFavorites/')
+fetch(User_Favorites_URL)
 .then((response) => response.json())
 .then((data) => {
   const findUserFavorites = data.find((user) => user.userid === UserDetails.user.userid);
@@ -127,7 +128,7 @@ fetch('http://localhost:3005/userFavorites/')
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(updatedFavorite),
       };
-      fetch(`http://localhost:3005/userFavorites/${findUserFavorites.id}`, postOptions);
+      fetch(`${User_Favorites_URL + findUserFavorites.id}${findUserFavorites.id}`, postOptions);
     
       const userid = UserDetails.user.userid;
       setFavoritesProducts(prevState => ({
@@ -140,7 +141,7 @@ fetch('http://localhost:3005/userFavorites/')
 };
 
 const DeleteFromFavorites = (item) => {
-  fetch('http://localhost:3005/userFavorites/')
+  fetch(User_Favorites_URL)
     .then((response) => response.json())
     .then((data) => {
       const findUserFavorites = data.find((user) => user.userid === UserDetails.user.userid);
@@ -157,7 +158,7 @@ const DeleteFromFavorites = (item) => {
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(updatedFavorite),
           };
-          fetch(`http://localhost:3005/userFavorites/${findUserFavorites.id}`, postOptions)
+          fetch(`${User_Favorites_URL+findUserFavorites.id}`, postOptions)
             .then(() => {
               const userid = UserDetails.user.userid;
               const favoriteProductsArray = favoriteProducts.products.filter((productId) => productId !== item.id);

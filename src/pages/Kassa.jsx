@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { Image } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
 import swishLogo from '../media_components/swish_logo.svg'
+import { PO_URL } from '../constants';
 
 function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clearCart } ){
   const navigate = useNavigate();
@@ -352,7 +353,7 @@ function Kassa( { cartProducts,updateQuantity, removeFromCart, UserDetails, clea
         'Content-Type': 'application/json'},
       body: JSON.stringify(Order),
     };
-        fetch('http://localhost:3005/purchaseOrders',postOptions)
+        fetch(PO_URL,postOptions)
           .then(response => response.json())
           .then(data => {
             //rensa hela kundkorgen när ordern är lagd
