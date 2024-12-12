@@ -40,12 +40,12 @@ function Meny({ addToCart, addToFavorites, UserDetails }) {
     return(
         
 
-  
+
    <div className="container">
    <h1 className='text-center mb-3'>Meny</h1>
 
 {/* Lägga in alla filter knappar*/}
-   <div className="mb-5 d-flex justify-content-center">
+   <div className="d-flex flex-wrap justify-content-center">
   
         {filters.map((filter) => (
      <div className='me-1' key={filter.id}> 
