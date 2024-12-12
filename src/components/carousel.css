@@ -1,4 +1,18 @@
-.center {
-display:flex;
-justify-content: center;
+.carousel-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+.carousel-image {
+  width: 100%; 
+  max-width: 500px; 
+  height: auto; 
+}
+
+@media (max-width: 768px) {
+  .carousel-image {
+    max-width: 300px; 
+  }
 }
