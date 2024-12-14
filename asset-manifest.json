@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Bun-drop/static/css/main.845b000b.css",
+    "main.js": "/Bun-drop/static/js/main.59dc7e63.js",
+    "static/js/453.5d80e4b5.chunk.js": "/Bun-drop/static/js/453.5d80e4b5.chunk.js",
+    "static/media/burger-3.png": "/Bun-drop/static/media/burger-3.2b48a55554ced0bc5f20.png",
+    "static/media/burger-4.png": "/Bun-drop/static/media/burger-4.95df465ad8d2f25e8422.png",
+    "static/media/burger-5.png": "/Bun-drop/static/media/burger-5.a895c1e7fb9a5a8ec445.png",
+    "static/media/logo color.png": "/Bun-drop/static/media/logo color.efbb36130ad4f4aff04d.png",
+    "static/media/swish_logo.svg": "/Bun-drop/static/media/swish_logo.57b80f75b66a7f9476b909441bd47212.svg",
+    "static/media/logo.svg": "/Bun-drop/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Bun-drop/index.html",
+    "main.845b000b.css.map": "/Bun-drop/static/css/main.845b000b.css.map",
+    "main.59dc7e63.js.map": "/Bun-drop/static/js/main.59dc7e63.js.map",
+    "453.5d80e4b5.chunk.js.map": "/Bun-drop/static/js/453.5d80e4b5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.845b000b.css",
+    "static/js/main.59dc7e63.js"
+  ]
+}
